@@ -1,0 +1,35 @@
+1001Fonts Personal Use License for Campaign Sans Serif
+
+Introduction
+This license covers the Campaign Sans Serif font package, which may include multiple font files forming a typeface.
+
+1. Copyright
+Campaign Sans Serif, as original work, is protected under copyright law.
+
+2. Personal Use
+You may use Campaign Sans Serif for free in personal, non-commercial contexts, provided the use is lawful and non-discriminatory. Examples of personal use include:
+    • Individual scrapbooking
+    • Personal blogs and websites
+    • Non-profit prints like flyers and t-shirts
+
+3. Commercial Use
+Commercial exploitation of Campaign Sans Serif requires written consent from its author. Commercial use is defined as any activity intended for business gain, such as:
+    • Company branding materials
+    • Merchandise for sale
+    • Paid event promotions
+    • Professional design services
+
+4. Modification
+Modifying Campaign Sans Serif is prohibited without the author's explicit permission.
+
+5. Conversion
+Converting Campaign Sans Serif into other formats (e.g., WOFF, SVG) is permitted for personal use, without altering the font's characteristics.
+
+6. Distribution
+Campaign Sans Serif may be shared but not sold or published commercially without the author's permission.
+
+7. Embedding
+Embedding Campaign Sans Serif in personal-use applications is allowed, provided the font is not distributed from the application.
+
+8. Disclaimer
+Campaign Sans Serif is provided "as is" with no warranties. The creators will not be liable for any damages from its use. Utilizing Campaign Sans Serif signifies acceptance of these terms.
