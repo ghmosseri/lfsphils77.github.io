@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>League of Filipino Students</title>
+
+    <style>
+
+        @font-face {
+            font-family: "Inktera Demo";
+            src: url("LFSphils77-fonts/InkteraDemo.otf") format("woff2");
+        }
+
+        @font-face {
+            font-family: "Masonries Sans Bold Italic";
+            src: url("LFSphils77-fonts/MasonriesSans-BoldItalic.otf") format("woff2");
+        }
+
+        @font-face {
+            font-family: "Masonries Sans Extra Bold";
+            src: url("LFSphils77-fonts/MasonriesSans-ExtraBold.otf") format("woff2");
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background-image: url('LFSphils77-media_assets/LFS-landing-backdrop.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            transform: translateY(30px);
+        }
+
+        h1 {
+            font-family: "Inktera Demo", sans-serif;
+            font-weight: bold;
+            font-size: 181.33px;
+            color: #ffbc10;
+            margin: 0;
+        }
+
+        h3 {
+            font-family: "Masonries Sans Bold Italic", sans-serif;
+            font-weight: bold;
+            font-style: italic;
+            font-size: 99.8px;
+            color: rgba(255, 188, 16, 0.768);
+            margin: 0;
+        }
+
+        .video-text {
+            font-family: "Masonries Sans Extra Bold", sans-serif;
+            font-size: 197px;
+            font-weight: bold;
+
+            margin: 0;
+
+            /* Makes the video visible inside the letters */
+            background-image: url("LFSphils77-media_assets/LFS-overlaytext-vid.mp4");
+            background-size: cover;
+            background-position: center;
+
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>League of Filipino Students</h1>
+
+        <h3>Youth Take To The Streets.</h3>
+
+        <h2 class="video-text">Shut Down Pax Silica!</h2>
+
+    </div>
+
+</body>
+</html>
