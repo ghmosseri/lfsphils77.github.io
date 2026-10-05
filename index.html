@@ -1,156 +1,592 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>League of Filipino Students</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
+    <title>League of Filipino Students</title>
 
-    @font-face {
-        font-family: "Inktera Demo";
-        src: url("LFSphils77-fonts/InkteraDemo.otf") format("opentype");
-    }
+    <style>
 
-    @font-face {
-        font-family: "Masonries Sans Bold Italic";
-        src: url("LFSphils77-fonts/MasonriesSans-BoldItalic.otf") format("opentype");
-    }
+        @font-face {
+            font-family: "Inktera Demo";
+            src: url("LFSphils77-fonts/InkteraDemo.otf") format("opentype");
+            font-weight: bold;
+        }
 
-    @font-face {
-        font-family: "Masonries Sans Extra Bold";
-        src: url("LFSphils77-fonts/MasonriesSans-ExtraBold.otf") format("opentype");
-    }
+        @font-face {
+            font-family: "Masonries Sans Bold Italic";
+            src: url("LFSphils77-fonts/MasonriesSans-BoldItalic.otf") format("opentype");
+            font-weight: bold;
+            font-style: italic;
+        }
 
-
-    * {
-        box-sizing: border-box;
-    }
-
-
-    html,
-    body {
-        margin: 0;
-        width: 100%;
-        height: 100%;
-    }
+        @font-face {
+            font-family: "Masonries Sans Extra Bold";
+            src: url("LFSphils77-fonts/MasonriesSans-ExtraBold.otf") format("opentype");
+            font-weight: 800;
+        }
 
 
-    body {
-
-        display: flex;
-
-        justify-content: center;
-        align-items: center;
-
-        background-image:
-            url("LFSphils77-media_assets/LFS-landing-backdrop.jpg");
-
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-
-        overflow: hidden;
-    }
+        * {
+            box-sizing: border-box;
+        }
 
 
-    .container {
-
-        width: 100%;
-
-        text-align: center;
-
-        transform: translateY(30px);
-
-        padding: 30px;
-    }
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
 
 
-    h1 {
+        body {
 
-        font-family: "Inktera Demo", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-        font-size: clamp(
-            70px,
-            12vw,
-            181.33px
+            background-image:
+                url("LFSphils77-media_assets/LFS-landing-backdrop.jpg");
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            overflow: hidden;
+        }
+
+
+        .container {
+
+            width: 100%;
+
+            padding: 30px;
+
+            text-align: center;
+
+            transform: translateY(30px);
+        }
+
+
+        h1 {
+
+            margin: 0;
+
+            font-family: "Inktera Demo", sans-serif;
+
+            font-size: clamp(
+                60px,
+                12vw,
+                181.33px
+            );
+
+            font-weight: bold;
+
+            line-height: 0.9;
+
+            color: #ffbc10;
+        }
+
+
+        h3 {
+
+            margin: 20px 0 0;
+
+            font-family:
+                "Masonries Sans Bold Italic",
+                sans-serif;
+
+            font-size: clamp(
+                35px,
+                7vw,
+                99.8px
+            );
+
+            font-weight: bold;
+
+            font-style: italic;
+
+            line-height: 0.9;
+
+            color: rgba(
+                255,
+                188,
+                16,
+                0.768
+            );
+        }
+
+
+        /*
+        ==========================================
+        VIDEO TEXT
+        ==========================================
+        */
+
+        .video-text {
+
+            position: relative;
+
+            width: 100%;
+
+            margin-top: 25px;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        #videoTextCanvas {
+
+            display: block;
+
+            width: 100%;
+
+            max-width: 1600px;
+
+            height: auto;
+        }
+
+
+        /*
+        Hidden video.
+        JavaScript uses this as the source
+        for the canvas.
+        */
+
+        #paxSilicaVideo {
+
+            position: absolute;
+
+            width: 1px;
+            height: 1px;
+
+            opacity: 0;
+
+            pointer-events: none;
+        }
+
+
+        /*
+        ==========================================
+        MOBILE ADJUSTMENTS
+        ==========================================
+        */
+
+        @media (max-width: 600px) {
+
+            .container {
+                padding: 15px;
+            }
+
+            .video-text {
+                margin-top: 15px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="container">
+
+        <h1>
+            League of Filipino Students
+        </h1>
+
+
+        <h3>
+            Youth Take To The Streets.
+        </h3>
+
+
+        <div class="video-text">
+
+            <canvas id="videoTextCanvas"></canvas>
+
+            <video
+                id="paxSilicaVideo"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="auto"
+            >
+                
+                <source
+                    src="LFSphils77-media_assets/LFS-overlaytext-vid.mp4"
+                    type="video/mp4"
+                >
+
+            </video>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        /*
+        ==========================================
+        GET ELEMENTS
+        ==========================================
+        */
+
+        const video =
+            document.getElementById("paxSilicaVideo");
+
+        const canvas =
+            document.getElementById("videoTextCanvas");
+
+        const ctx =
+            canvas.getContext("2d");
+
+
+        /*
+        ==========================================
+        TEXT
+        ==========================================
+        */
+
+        const text =
+            "Shut Down Pax Silica!";
+
+
+        /*
+        ==========================================
+        FONT
+        ==========================================
+        */
+
+        const fontFamily =
+            '"Masonries Sans Extra Bold"';
+
+
+        /*
+        ==========================================
+        CANVAS SIZE
+        ==========================================
+        */
+
+        function resizeCanvas() {
+
+            const container =
+                document.querySelector(".video-text");
+
+            const width =
+                container.clientWidth;
+
+            /*
+            Keep a wide poster-like aspect ratio.
+            */
+
+            const height =
+                Math.max(
+                    130,
+                    width * 0.20
+                );
+
+
+            const pixelRatio =
+                window.devicePixelRatio || 1;
+
+
+            canvas.width =
+                width * pixelRatio;
+
+            canvas.height =
+                height * pixelRatio;
+
+
+            canvas.style.width =
+                width + "px";
+
+            canvas.style.height =
+                height + "px";
+
+
+            ctx.setTransform(
+                pixelRatio,
+                0,
+                0,
+                pixelRatio,
+                0,
+                0
+            );
+        }
+
+
+        /*
+        ==========================================
+        DRAW VIDEO INSIDE TEXT
+        ==========================================
+        */
+
+        function drawVideoText() {
+
+            if (
+                video.readyState < 2
+            ) {
+
+                requestAnimationFrame(
+                    drawVideoText
+                );
+
+                return;
+            }
+
+
+            const width =
+                canvas.clientWidth;
+
+            const height =
+                canvas.clientHeight;
+
+
+            /*
+            Clear previous frame.
+            */
+
+            ctx.clearRect(
+                0,
+                0,
+                width,
+                height
+            );
+
+
+            /*
+            --------------------------------------
+            DETERMINE FONT SIZE
+            --------------------------------------
+            */
+
+            let fontSize =
+                Math.min(
+                    width * 0.105,
+                    134.59
+                );
+
+
+            /*
+            On smaller screens make the
+            typography slightly smaller.
+            */
+
+            if (width < 600) {
+
+                fontSize =
+                    width * 0.105;
+
+            }
+
+
+            ctx.font =
+                800 ${fontSize}px ${fontFamily};
+
+
+            ctx.textAlign =
+                "center";
+
+            ctx.textBaseline =
+                "middle";
+
+
+            /*
+            --------------------------------------
+            CREATE TEXT MASK
+            --------------------------------------
+            */
+
+            ctx.save();
+
+
+            /*
+            Draw the text as the clipping region.
+            */
+
+            ctx.beginPath();
+
+            ctx.fillText(
+                text,
+                width / 2,
+                height / 2
+            );
+
+
+            /*
+            Everything drawn after this
+            will only appear inside the text.
+            */
+
+            ctx.clip();
+
+    /*
+            --------------------------------------
+            DRAW VIDEO
+            --------------------------------------
+            */
+
+            const videoWidth =
+                video.videoWidth;
+
+            const videoHeight =
+                video.videoHeight;
+
+
+            if (
+                videoWidth &&
+                videoHeight
+            ) {
+
+                const videoRatio =
+                    videoWidth /
+                    videoHeight;
+
+                const canvasRatio =
+                    width /
+                    height;
+
+
+                let drawWidth;
+                let drawHeight;
+
+
+                /*
+                Cover the entire text area
+                with the video.
+                */
+
+                if (
+                    videoRatio >
+                    canvasRatio
+                ) {
+
+                    drawHeight =
+                        height;
+
+                    drawWidth =
+                        height *
+                        videoRatio;
+
+                } else {
+
+                    drawWidth =
+                        width;
+
+                    drawHeight =
+                        width /
+                        videoRatio;
+
+                }
+
+
+                const x =
+                    (width -
+                    drawWidth) / 2;
+
+                const y =
+                    (height -
+                    drawHeight) / 2;
+
+
+                ctx.drawImage(
+                    video,
+                    x,
+                    y,
+                    drawWidth,
+                    drawHeight
+                );
+
+            }
+
+
+            ctx.restore();
+
+
+            /*
+            --------------------------------------
+            NEXT VIDEO FRAME
+            --------------------------------------
+            */
+
+            requestAnimationFrame(
+                drawVideoText
+            );
+        }
+
+
+        /*
+        ==========================================
+        FONT LOADING
+        ==========================================
+        */
+
+        document.fonts.ready.then(
+            function () {
+
+                resizeCanvas();
+
+                /*
+                Start drawing.
+                */
+
+                drawVideoText();
+
+            }
         );
 
-        font-weight: bold;
 
-        line-height: 0.9;
+        /*
+        ==========================================
+        WINDOW RESIZE
+        ==========================================
+        */
 
-        color: #ffbc10;
-
-        margin: 0;
-    }
-
-
-    h3 {
-
-        font-family:
-            "Masonries Sans Bold Italic",
-            sans-serif;
-
-        font-size: clamp(
-            40px,
-            7vw,
-            99.8px
+        window.addEventListener(
+            "resize",
+            resizeCanvas
         );
 
-        font-weight: bold;
 
-        font-style: italic;
+        /*
+        ==========================================
+        START VIDEO
+        ==========================================
+        */
 
-        line-height: 0.9;
+        video.play().catch(
+            function () {
 
-        color: rgba(
-            255,
-            188,
-            16,
-            0.768
+                /*
+                Some mobile browsers require
+                a user interaction before playback.
+
+                The video is muted, so autoplay
+                should normally work.
+                */
+
+                console.log(
+                    "Video autoplay was blocked."
+                );
+
+            }
         );
 
-        margin: 20px 0 0;
-    }
+    </script>
 
 
-    h2 {
+</body>
 
-        font-family:
-            "Masonries Sans Extra Bold",
-            sans-serif;
-
-        font-size: clamp(
-            50px,
-            10vw,
-            134.59px
-        );
-
-        font-weight: 800;
-
-        line-height: 0.9;
-
-        color: #ffbc10;
-
-        margin: 25px 0 0;
-    }
-
-</style>
-
-</head><body><div class="container">
-
-    <h1>
-        League of Filipino Students
-    </h1>
-
-    <h3>
-        Youth Take To The Streets.
-    </h3>
-
-    <h2>
-        Shut Down Pax Silica!
-    </h2>
-
-</div>
-
-</body></html>
+</html>
