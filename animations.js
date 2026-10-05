@@ -1,417 +1,117 @@
 (() => {
-
 "use strict";
 
+const canvas = document.getElementById("videoTextCanvas");
+const video = document.getElementById("paxSilicaVideo");
+if (!canvas || !video) { console.error("LFS animation elements not found."); return; }
+const ctx = canvas.getContext("2d");
 
-/* =====================================================
-   GET ELEMENTS
-===================================================== */
+/* ================= NAV RIBBON ================= */
+const ribbon = document.getElementById("ribbon");
+const menuBtn = document.getElementById("menuBtn");
+const links = [...document.querySelectorAll("a.link")];
 
-const canvas =
-    document.getElementById(
-        "videoTextCanvas"
-    );
+menuBtn.addEventListener("click", () => {
+  const open = ribbon.classList.toggle("open");
+  menuBtn.setAttribute("aria-expanded", open);
+});
+links.forEach(a => a.addEventListener("click", () => {
+  ribbon.classList.remove("open");
+  menuBtn.setAttribute("aria-expanded", "false");
+}));
 
-
-const video =
-    document.getElementById(
-        "paxSilicaVideo"
-    );
-
-
-if (!canvas || !video) {
-
-    console.error(
-        "LFS animation elements were not found."
-    );
-
-    return;
-}
-
-
-const ctx =
-    canvas.getContext(
-        "2d"
-    );
-
-
-const text =
-    "Shut Down Pax Silica!";
-
-
-/* =====================================================
-   DEVICE PIXEL RATIO
-===================================================== */
-
-let pixelRatio =
-    window.devicePixelRatio || 1;
-
-
-/* =====================================================
-   RESIZE CANVAS
-===================================================== */
-
-function resizeCanvas() {
-
-    pixelRatio =
-        window.devicePixelRatio || 1;
-
-
-    const width =
-        canvas.parentElement
-            .clientWidth;
-
-
-    /*
-        Give the text enough vertical space.
-    */
-
-    const height =
-        Math.max(
-            150,
-            width * 0.21
-        );
-
-
-    canvas.width =
-        Math.round(
-            width * pixelRatio
-        );
-
-
-    canvas.height =
-        Math.round(
-            height * pixelRatio
-        );
-
-
-    canvas.style.width =
-        `${width}px`;
-
-
-    canvas.style.height =
-        `${height}px`;
-
-
-    ctx.setTransform(
-        pixelRatio,
-        0,
-        0,
-        pixelRatio,
-        0,
-        0
-    );
-}
-
-
-/* =====================================================
-   DRAW VIDEO INSIDE TEXT
-   
-   IMPORTANT:
-   
-   We do NOT use ctx.clip().
-
-   Instead:
-
-   1. Draw the video.
-   2. Switch to destination-in.
-   3. Draw the text.
-
-   destination-in keeps the video only
-   where the text exists.
-===================================================== */
-
-function drawVideoText() {
-
-    const width =
-        canvas.clientWidth;
-
-
-    const height =
-        canvas.clientHeight;
-
-
-    if (
-        width <= 0 ||
-        height <= 0
-    ) {
-
-        requestAnimationFrame(
-            drawVideoText
-        );
-
-        return;
+// Highlight the link for the section currently in view
+const sections = links.map(a => document.querySelector(a.getAttribute("href"))).filter(Boolean);
+const spy = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      links.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id));
     }
+  });
+}, { rootMargin: "-45% 0px -50% 0px" });
+sections.forEach(s => spy.observe(s));
 
+/* ================= VIDEO-IN-TEXT ================= */
+const FONT = '800 100px "Masonries"';
+const FALLBACK = ', Helvetica, Arial, sans-serif';
+let dpr = 1, W = 0, H = 0, lines = [], fontSize = 0, running = false, visible = true;
 
-    /* ---------------------------------------------
-       CLEAR PREVIOUS FRAME
-    --------------------------------------------- */
+// Measure at 100px, then scale so the widest line fills ~94% of the canvas.
+function layout() {
+  dpr = window.devicePixelRatio || 1;
+  W = canvas.parentElement.clientWidth;
+  if (W <= 0) return;
 
-    ctx.clearRect(
-        0,
-        0,
-        width,
-        height
-    );
+  lines = W < 640 ? ["Shut Down", "Pax Silica!"] : ["Shut Down Pax Silica!"];
 
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.font = FONT.replace('"Masonries"', '"Masonries"' + FALLBACK);
+  const widest = Math.max(...lines.map(l => ctx.measureText(l).width)) || 1;
+  fontSize = Math.min((W * 0.94) / widest * 100, 150);
 
-    /* ---------------------------------------------
-       DRAW VIDEO
-    --------------------------------------------- */
+  const lineH = fontSize * 1.05;
+  H = Math.ceil(lineH * lines.length + fontSize * 0.3);
 
-    if (
-        video.readyState >= 2 &&
-        video.videoWidth > 0
-    ) {
-
-        const videoRatio =
-            video.videoWidth /
-            video.videoHeight;
-
-
-        const canvasRatio =
-            width /
-            height;
-
-
-        let drawWidth;
-        let drawHeight;
-
-
-        /*
-            "cover" behavior
-        */
-
-        if (
-            videoRatio >
-            canvasRatio
-        ) {
-
-            drawHeight =
-                height;
-
-
-            drawWidth =
-                height *
-                videoRatio;
-
-        } else {
-
-            drawWidth =
-                width;
-
-
-            drawHeight =
-                width /
-                videoRatio;
-        }
-
-
-        const x =
-            (
-                width -
-                drawWidth
-            ) / 2;
-
-
-        const y =
-            (
-                height -
-                drawHeight
-            ) / 2;
-
-
-        ctx.drawImage(
-            video,
-            x,
-            y,
-            drawWidth,
-            drawHeight
-        );
-
-
-        /* -----------------------------------------
-           TURN VIDEO INTO TEXT MASK
-        ----------------------------------------- */
-
-        ctx.globalCompositeOperation =
-            "destination-in";
-
-
-        const fontSize =
-            Math.min(
-                width * 0.105,
-                134.59
-            );
-
-
-        ctx.font =
-            `800 ${fontSize}px "Masonries"`;
-
-
-        ctx.textAlign =
-            "center";
-
-
-        ctx.textBaseline =
-            "middle";
-
-
-        ctx.fillStyle =
-            "#ffffff";
-
-
-        ctx.fillText(
-            text,
-            width / 2,
-            height / 2
-        );
-
-
-        /*
-            Return canvas to normal drawing mode.
-        */
-
-        ctx.globalCompositeOperation =
-            "source-over";
-    }
-
-
-    /*
-        Continue animation.
-    */
-
-    requestAnimationFrame(
-        drawVideoText
-    );
+  canvas.width = Math.round(W * dpr);
+  canvas.height = Math.round(H * dpr);
+  canvas.style.width = W + "px";
+  canvas.style.height = H + "px";
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 }
 
+function draw() {
+  if (!running) return;
+  if (visible && !document.hidden && W > 0 && video.readyState >= 2 && video.videoWidth > 0) {
+    ctx.clearRect(0, 0, W, H);
+    ctx.globalCompositeOperation = "source-over";
 
-/* =====================================================
-   FONT LOADING
-   
-   This is especially important for canvas.
+    // 1. video, "cover" fit
+    const vr = video.videoWidth / video.videoHeight, cr = W / H;
+    let dw, dh;
+    if (vr > cr) { dh = H; dw = H * vr; } else { dw = W; dh = W / vr; }
+    ctx.drawImage(video, (W - dw) / 2, (H - dh) / 2, dw, dh);
 
-   CSS may know about Masonries while canvas
-   tries to render before the font has loaded.
-===================================================== */
+    // 2. keep the video only where the text is
+    ctx.globalCompositeOperation = "destination-in";
+    ctx.font = `800 ${fontSize}px "Masonries"${FALLBACK}`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillStyle = "#fff";
+    const lineH = fontSize * 1.05;
+    const top = H / 2 - (lineH * (lines.length - 1)) / 2;
+    lines.forEach((l, i) => ctx.fillText(l, W / 2, top + i * lineH));
 
+    ctx.globalCompositeOperation = "source-over";
+  }
+  requestAnimationFrame(draw);
+}
+
+/* ================= FONT LOADING + DIAGNOSTICS ================= */
 async function loadFonts() {
-
-    try {
-
-        await document.fonts.load(
-            '800 100px "Masonries"'
-        );
-
-
-        await document.fonts.load(
-            '700 100px "Inktera"'
-        );
-
-
-        console.log(
-            "LFS fonts loaded."
-        );
-
-    } catch (error) {
-
-        console.warn(
-            "Could not load custom fonts:",
-            error
-        );
-    }
+  const wanted = ['800 100px "Masonries"', 'italic 700 100px "Masonries"', '700 100px "Inktera"', '100 100px "Masonries Thin"'];
+  const results = await Promise.allSettled(wanted.map(f => document.fonts.load(f)));
+  results.forEach((r, i) => {
+    const ok = r.status === "fulfilled" && r.value.length > 0;
+    // An empty result means the file was never found: check the path/case in index.html.
+    (ok ? console.log : console.warn)(`${ok ? "Loaded" : "FAILED to load"} font: ${wanted[i]}`);
+  });
 }
-
-
-/* =====================================================
-   START VIDEO
-===================================================== */
-
-async function startVideo() {
-
-    try {
-
-        await video.play();
-
-        console.log(
-            "LFS video started."
-        );
-
-    } catch (error) {
-
-        console.warn(
-            "Video autoplay was blocked.",
-            error
-        );
-    }
-}
-
-
-/* =====================================================
-   INITIALIZATION
-===================================================== */
 
 async function init() {
-
-    resizeCanvas();
-
-
-    /*
-        Wait specifically for the fonts
-        before drawing canvas text.
-    */
-
-    await loadFonts();
-
-
-    /*
-        Start the video.
-    */
-
-    await startVideo();
-
-
-    /*
-        Begin canvas animation.
-    */
-
-    requestAnimationFrame(
-        drawVideoText
-    );
+  await loadFonts();
+  layout();
+  try { await video.play(); } catch (e) { console.warn("Video autoplay blocked.", e); }
+  running = true;
+  requestAnimationFrame(draw);
 }
 
+// Pause drawing when the canvas is scrolled off-screen (saves battery on phones)
+new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(canvas);
 
-/* =====================================================
-   RESIZE HANDLER
-===================================================== */
-
-let resizeTimer;
-
-
-window.addEventListener(
-    "resize",
-    () => {
-
-        clearTimeout(
-            resizeTimer
-        );
-
-
-        resizeTimer =
-            setTimeout(
-                resizeCanvas,
-                100
-            );
-    }
-);
-
-
-/* =====================================================
-   START
-===================================================== */
+let t;
+window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(layout, 100); });
+window.addEventListener("orientationchange", () => setTimeout(layout, 200));
 
 init();
-
 })();
+      
