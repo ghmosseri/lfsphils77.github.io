@@ -1,0 +1,63 @@
+# League of Filipino Students Landing Page
+
+## Requirement Summary
+This document outlines the HTML code for a landing page featuring a title and subtitle with specific styling requirements. The title is prominently displayed in the upper portion of the scrollable site, with a unique font and color scheme.
+
+## Code Generated
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>League of Filipino Students</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Helvetica Now Condensed', sans-serif;
+            background-image: url('your-image-url.jpg'); /* Replace with your background image */
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .container {
+            text-align: center;
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #ffbc10;
+        }
+        .title {
+            font-size: 181.33px; /* 136pt */
+            font-weight: bold;
+        }
+        .subtitle {
+            font-size: 181.33px; /* 136pt */
+            font-weight: bold;
+            opacity: 0.768; /* 76.8% transparency */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">League of Filipino Students</div>
+        <div class="subtitle">Youth Take To The Streets.</div>
+        <div class="subtitle">Shut Down Pax Silica!</div>
+    </div>
+    <script>
+        // Error handling for loading the background image
+        const body = document.body;
+        const img = new Image();
+        img.src = 'your-image-url.jpg'; // Replace with your background image
+        img.onerror = function() {
+            console.error('Error loading the background image.');
+            body.style.backgroundColor = '#000'; // Fallback color
+        };
+    </script>
+</body>
+</html>
