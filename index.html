@@ -1,97 +1,154 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!DOCTYPE html><html lang="en"><head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>League of Filipino Students</title>
 
-    <title>League of Filipino Students</title>
+<style>
 
-    <style>
+    @font-face {
+        font-family: "Inktera Demo";
+        src: url("LFSphils77-fonts/InkteraDemo.otf") format("opentype");
+    }
 
-        @font-face {
-            font-family: "Inktera Demo";
-            src: url("LFSphils77-fonts/InkteraDemo.otf") format("woff2");
-        }
+    @font-face {
+        font-family: "Masonries Sans Bold Italic";
+        src: url("LFSphils77-fonts/MasonriesSans-BoldItalic.otf") format("opentype");
+    }
 
-        @font-face {
-            font-family: "Masonries Sans Bold Italic";
-            src: url("LFSphils77-fonts/MasonriesSans-BoldItalic.otf") format("woff2");
-        }
+    @font-face {
+        font-family: "Masonries Sans Extra Bold";
+        src: url("LFSphils77-fonts/MasonriesSans-ExtraBold.otf") format("opentype");
+    }
 
-        @font-face {
-            font-family: "Masonries Sans Extra Bold";
-            src: url("LFSphils77-fonts/MasonriesSans-ExtraBold.otf") format("woff2");
-        }
 
-        body {
-            margin: 0;
-            height: 100vh;
+    * {
+        box-sizing: border-box;
+    }
 
-            display: flex;
-            justify-content: center;
-            align-items: center;
 
-            background-image: url('LFSphils77-media_assets/LFS-landing-backdrop.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+    html,
+    body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+    }
 
-            overflow: hidden;
-        }
 
-        .container {
-            text-align: center;
-            transform: translateY(30px);
-        }
+    body {
 
-        h1 {
-            font-family: "Inktera Demo", sans-serif;
-            font-weight: bold;
-            font-size: 181.33px;
-            color: #ffbc10;
-            margin: 0;
-        }
+        display: flex;
 
-        h3 {
-            font-family: "Masonries Sans Bold Italic", sans-serif;
-            font-weight: bold;
-            font-style: italic;
-            font-size: 99.8px;
-            color: rgba(255, 188, 16, 0.768);
-            margin: 0;
-        }
+        justify-content: center;
+        align-items: center;
 
-        .video-text {
-            font-family: "Masonries Sans Extra Bold", sans-serif;
-            font-size: 197px;
-            font-weight: bold;
+        background-image:
+            url("LFSphils77-media_assets/LFS-landing-backdrop.jpg");
 
-            margin: 0;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
 
-            /* Makes the video visible inside the letters */
-            background-image: url("LFSphils77-media_assets/LFS-overlaytext-vid.mp4");
-            background-size: cover;
-            background-position: center;
+        overflow: hidden;
+    }
 
-            color: transparent;
-            -webkit-background-clip: text;
-            background-clip: text;
-        }
 
-    </style>
-</head>
+    .container {
 
-<body>
+        width: 100%;
 
-    <div class="container">
+        text-align: center;
 
-        <h1>League of Filipino Students</h1>
+        transform: translateY(30px);
 
-        <h3>Youth Take To The Streets.</h3>
+        padding: 30px;
+    }
 
-        <h2 class="video-text">Shut Down Pax Silica!</h2>
 
-    </div>
+    h1 {
 
-</body>
-</html>
+        font-family: "Inktera Demo", sans-serif;
+
+        font-size: clamp(
+            70px,
+            12vw,
+            181.33px
+        );
+
+        font-weight: bold;
+
+        line-height: 0.9;
+
+        color: #ffbc10;
+
+        margin: 0;
+    }
+
+
+    h3 {
+
+        font-family:
+            "Masonries Sans Bold Italic",
+            sans-serif;
+
+        font-size: clamp(
+            40px,
+            7vw,
+            99.8px
+        );
+
+        font-weight: bold;
+
+        font-style: italic;
+
+        line-height: 0.9;
+
+        color: rgba(
+            255,
+            188,
+            16,
+            0.768
+        );
+
+        margin: 20px 0 0;
+    }
+
+
+    h2 {
+
+        font-family:
+            "Masonries Sans Extra Bold",
+            sans-serif;
+
+        font-size: clamp(
+            50px,
+            10vw,
+            134.59px
+        );
+
+        font-weight: 800;
+
+        line-height: 0.9;
+
+        color: #ffbc10;
+
+        margin: 25px 0 0;
+    }
+
+</style>
+
+</head><body><div class="container">
+
+    <h1>
+        League of Filipino Students
+    </h1>
+
+    <h3>
+        Youth Take To The Streets.
+    </h3>
+
+    <h2>
+        Shut Down Pax Silica!
+    </h2>
+
+</div>
+
+</body></html>
