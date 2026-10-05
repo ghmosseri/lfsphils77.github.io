@@ -11,7 +11,7 @@
 <style>
 
     /* =====================================================
-       FONT FILES
+       FONTS
     ===================================================== */
 
     @font-face {
@@ -20,12 +20,14 @@
 
         src:
             url(
-                "LFSphils77-fonts/inktera-demo/InkteraDemo.otf"
+                "./LFSphils77-fonts/inktera-demo/InkteraDemo.otf"
             )
             format("opentype");
 
-        font-weight: bold;
+        font-weight: 700;
         font-style: normal;
+
+        font-display: swap;
     }
 
 
@@ -35,12 +37,14 @@
 
         src:
             url(
-                "LFSphils77-fonts/masonries-sans/MasonriesSans-BoldItalic.otf"
+                "./LFSphils77-fonts/masonries-sans/MasonriesSans-BoldItalic.otf"
             )
             format("opentype");
 
-        font-weight: bold;
+        font-weight: 700;
         font-style: italic;
+
+        font-display: swap;
     }
 
 
@@ -50,14 +54,15 @@
 
         src:
             url(
-                "LFSphils77-fonts/masonries-sans/MasonriesSans-ExtraBold.otf"
+                "./LFSphils77-fonts/masonries-sans/MasonriesSans-ExtraBold.otf"
             )
             format("opentype");
 
         font-weight: 800;
         font-style: normal;
-    }
 
+        font-display: swap;
+    }
 
 
     /* =====================================================
@@ -79,38 +84,31 @@
     }
 
 
-
     /* =====================================================
-       BODY
+       BODY / BACKGROUND
     ===================================================== */
 
     body {
 
         position: relative;
 
+        min-height: 100vh;
+
         display: flex;
 
         justify-content: center;
-        align-items: center;
 
-        min-height: 100vh;
+        align-items: center;
 
         overflow: hidden;
 
-        background-color: #7A0C0D;
+        background:
+            #7A0C0D;
     }
 
 
-
     /* =====================================================
-       PHOTOGRAPH + BURGUNDY / MAROON FILTER
-       
-       Layer:
-       ORIGINAL PHOTO
-             ↓
-       BURGUNDY / MAROON
-             ↓
-       RED HIGHLIGHTS
+       PHOTOGRAPH + BURGUNDY FILTER
     ===================================================== */
 
     body::before {
@@ -128,12 +126,11 @@
 
         background-image:
 
-            /* ---------------------------------------------
-               #B21E23 HIGHLIGHT
-            --------------------------------------------- */
+            /* #B21E23 highlight */
 
             radial-gradient(
                 circle at 72% 25%,
+
                 rgba(
                     178,
                     30,
@@ -152,12 +149,11 @@
             ),
 
 
-            /* ---------------------------------------------
-               DEEP BURGUNDY → MAROON
-            --------------------------------------------- */
+            /* Burgundy → maroon */
 
             linear-gradient(
                 135deg,
+
                 rgba(
                     122,
                     12,
@@ -174,12 +170,10 @@
             ),
 
 
-            /* ---------------------------------------------
-               ORIGINAL PHOTOGRAPH
-            --------------------------------------------- */
+            /* Original photograph */
 
             url(
-                "LFSphils77-media_assets/LFS-landing-backdrop.jpeg"
+                "./LFSphils77-media_assets/LFS-landing-backdrop.jpeg"
             );
 
 
@@ -199,34 +193,19 @@
             no-repeat;
 
 
-        /*
-            Keeps the photograph visible while
-            pushing its overall palette toward
-            burgundy and maroon.
-        */
-
         background-blend-mode:
             screen,
             multiply,
             normal;
 
 
-        /*
-            Slight enlargement prevents a
-            visible edge during grain movement.
-        */
-
         transform:
             scale(1.02);
     }
 
 
-
     /* =====================================================
-       MOVING FILM / PRINT GRAIN
-       
-       This layer sits ABOVE the photograph
-       but BELOW the typography.
+       MOVING GRAIN
     ===================================================== */
 
     body::after {
@@ -235,24 +214,12 @@
 
         position: fixed;
 
-        /*
-            Make the noise layer larger than
-            the viewport so movement never
-            exposes an empty edge.
-        */
-
         inset: -50%;
 
         z-index: 1;
 
         pointer-events: none;
 
-
-        /*
-            Procedural SVG noise.
-
-            No external image is required.
-        */
 
         background-image:
             url(
@@ -264,37 +231,17 @@
             repeat;
 
 
-        /*
-            140px gives a relatively fine
-            printed-film texture.
-        */
-
         background-size:
             140px 140px;
 
-
-        /*
-            Main grain strength.
-        */
 
         opacity:
             0.16;
 
 
-        /*
-            Allows the grain to interact with
-            the photograph instead of appearing
-            like a gray overlay.
-        */
-
         mix-blend-mode:
             soft-light;
 
-
-        /*
-            Rapid movement produces the
-            flickering analog-film effect.
-        */
 
         animation:
             filmGrain
@@ -304,11 +251,6 @@
     }
 
 
-
-    /* =====================================================
-       GRAIN ANIMATION
-    ===================================================== */
-
     @keyframes filmGrain {
 
         0% {
@@ -316,30 +258,25 @@
                 translate(0, 0);
         }
 
-
         20% {
             transform:
                 translate(-3%, 2%);
         }
-
 
         40% {
             transform:
                 translate(2%, -3%);
         }
 
-
         60% {
             transform:
                 translate(3%, 3%);
         }
 
-
         80% {
             transform:
                 translate(-2%, -2%);
         }
-
 
         100% {
             transform:
@@ -348,9 +285,8 @@
     }
 
 
-
     /* =====================================================
-       MAIN CONTENT
+       CONTENT
     ===================================================== */
 
     .container {
@@ -370,9 +306,8 @@
     }
 
 
-
     /* =====================================================
-       "LEAGUE OF FILIPINO STUDENTS"
+       TITLE
     ===================================================== */
 
     h1 {
@@ -384,16 +319,6 @@
             sans-serif;
 
 
-        /*
-            Responsive size.
-
-            Desktop:
-            approximately 181px
-
-            Mobile:
-            approximately 60px
-        */
-
         font-size:
             clamp(
                 60px,
@@ -403,7 +328,7 @@
 
 
         font-weight:
-            bold;
+            700;
 
 
         line-height:
@@ -412,7 +337,6 @@
 
         color:
             #ffbc10;
-
 
         text-shadow:
             0 2px 0
@@ -425,9 +349,8 @@
     }
 
 
-
     /* =====================================================
-       "YOUTH TAKE TO THE STREETS."
+       SUBTITLE
     ===================================================== */
 
     h3 {
@@ -450,7 +373,7 @@
 
 
         font-weight:
-            bold;
+            700;
 
 
         font-style:
@@ -464,7 +387,6 @@
         color:
             #ffbc10;
 
-
         text-shadow:
             0 2px 0
             rgba(
@@ -476,62 +398,65 @@
     }
 
 
-
     /* =====================================================
-       VIDEO TEXT CONTAINER
+       VIDEO TEXT
     ===================================================== */
 
     .video-text {
 
         width: 100%;
 
-        margin-top: 30px;
+        margin-top:
+            30px;
 
-        display: flex;
+        display:
+            flex;
 
-        justify-content: center;
+        justify-content:
+            center;
 
-        align-items: center;
+        align-items:
+            center;
     }
 
-
-
-    /* =====================================================
-       CANVAS
-    ===================================================== */
 
     #videoTextCanvas {
 
-        display: block;
+        display:
+            block;
 
-        width: 100%;
+        width:
+            100%;
 
-        max-width: 1600px;
+        max-width:
+            1600px;
 
-        height: auto;
+        height:
+            auto;
     }
 
 
-
-    /* =====================================================
-       HIDDEN VIDEO SOURCE
-       
-       The video itself is not displayed.
-       JavaScript draws it inside the text.
-    ===================================================== */
+    /*
+        Hidden source video.
+    */
 
     #paxSilicaVideo {
 
-        position: absolute;
+        position:
+            absolute;
 
-        width: 1px;
-        height: 1px;
+        width:
+            1px;
 
-        opacity: 0;
+        height:
+            1px;
 
-        pointer-events: none;
+        opacity:
+            0;
+
+        pointer-events:
+            none;
     }
-
 
 
     /* =====================================================
@@ -562,15 +487,13 @@
     }
 
 
-
     /* =====================================================
-       ACCESSIBILITY / REDUCED MOTION
-       
-       Users who have requested reduced motion
-       won't get rapidly moving grain.
+       REDUCED MOTION
     ===================================================== */
 
-    @media (prefers-reduced-motion: reduce) {
+    @media (
+        prefers-reduced-motion: reduce
+    ) {
 
         body::after {
 
@@ -581,11 +504,7 @@
 
 </style>
 
-</head><body><!-- =====================================================
-     CONTENT
-===================================================== -->
-
-<main class="container">
+</head><body><main class="container">
 
 
     <h1>
@@ -600,26 +519,11 @@
 
     <div class="video-text">
 
-
-        <!--
-            The canvas displays:
-
-            "Shut Down Pax Silica!"
-
-            with the MP4 visible only
-            inside the letters.
-        -->
-
         <canvas
             id="videoTextCanvas"
+            aria-label="Shut Down Pax Silica"
         ></canvas>
 
-
-        <!--
-            Actual video source.
-
-            Hidden visually.
-        -->
 
         <video
             id="paxSilicaVideo"
@@ -632,7 +536,7 @@
         >
 
             <source
-                src="LFSphils77-media_assets/LFS-overlaytext-vid.mp4"
+                src="./LFSphils77-media_assets/LFS-overlaytext-vid.mp4"
                 type="video/mp4"
             >
 
@@ -643,338 +547,13 @@
 </main>
 
 
-
-<script>
-
-
-    /* =====================================================
-       GET ELEMENTS
-    ===================================================== */
-
-    const video =
-        document.getElementById(
-            "paxSilicaVideo"
-        );
-
-
-    const canvas =
-        document.getElementById(
-            "videoTextCanvas"
-        );
-
-
-    const ctx =
-        canvas.getContext(
-            "2d"
-        );
-
-
-    const text =
-        "Shut Down Pax Silica!";
-
-
-
-    /* =====================================================
-       RESIZE CANVAS
-    ===================================================== */
-
-    function resizeCanvas() {
-
-        const container =
-            document.querySelector(
-                ".video-text"
-            );
-
-
-        const width =
-            container.clientWidth;
-
-
-        const height =
-            Math.max(
-                130,
-                width * 0.20
-            );
-
-
-        const pixelRatio =
-            window.devicePixelRatio || 1;
-
-
-        canvas.width =
-            width * pixelRatio;
-
-
-        canvas.height =
-            height * pixelRatio;
-
-
-        canvas.style.width =
-            width + "px";
-
-
-        canvas.style.height =
-            height + "px";
-
-
-        ctx.setTransform(
-            pixelRatio,
-            0,
-            0,
-            pixelRatio,
-            0,
-            0
-        );
-    }
-
-
-
-    /* =====================================================
-       DRAW VIDEO INSIDE TEXT
-    ===================================================== */
-
-    function drawVideoText() {
-
-        const width =
-            canvas.clientWidth;
-
-
-        const height =
-            canvas.clientHeight;
-
-
-        /*
-            Wait if canvas has not
-            received its dimensions yet.
-        */
-
-        if (
-            width === 0 ||
-            height === 0
-        ) {
-
-            requestAnimationFrame(
-                drawVideoText
-            );
-
-            return;
-        }
-
-
-        /*
-            Clear previous video frame.
-        */
-
-        ctx.clearRect(
-            0,
-            0,
-            width,
-            height
-        );
-
-
-        /*
-            Responsive font size.
-        */
-
-        const fontSize =
-            Math.min(
-                width * 0.105,
-                134.59
-            );
-
-
-        /*
-            Use the Masonries Extra Bold
-            font for the mask.
-        */
-
-        ctx.font =
-            `800 ${fontSize}px "Masonries"`;
-
-
-        ctx.textAlign =
-            "center";
-
-
-        ctx.textBaseline =
-            "middle";
-
-
-        /*
-        =================================================
-           CREATE TEXT MASK
-        =================================================
-        */
-
-        ctx.save();
-
-
-        ctx.beginPath();
-
-
-        ctx.fillText(
-            text,
-            width / 2,
-            height / 2
-        );
-
-
-        /*
-            Everything drawn after ctx.clip()
-            can only appear inside the text.
-        */
-
-        ctx.clip();
-
-
-
-        /*
-        =================================================
-           DRAW THE VIDEO
-        =================================================
-        */
-
-        if (
-            video.readyState >= 2 &&
-            video.videoWidth > 0
-        ) {
-
-            const videoWidth =
-                video.videoWidth;
-
-
-            const videoHeight =
-                video.videoHeight;
-
-
-            const videoRatio =
-                videoWidth /
-                videoHeight;
-
-
-            const canvasRatio =
-                width /
-                height;
-
-
-            let drawWidth;
-            let drawHeight;
-
-
-            /*
-                Make the video behave like
-                background-size: cover.
-            */
-
-            if (
-                videoRatio >
-                canvasRatio
-            ) {
-
-                drawHeight =
-                    height;
-
-
-                drawWidth =
-                    height *
-                    videoRatio;
-
-            } else {
-
-                drawWidth =
-                    width;
-
-
-                drawHeight =
-                    width /
-                    videoRatio;
-            }
-
-
-            const x =
-                (
-                    width -
-                    drawWidth
-                ) / 2;
-
-
-            const y =
-                (
-                    height -
-                    drawHeight
-                ) / 2;
-
-
-            ctx.drawImage(
-                video,
-                x,
-                y,
-                drawWidth,
-                drawHeight
-            );
-        }
-
-
-        /*
-            End text clipping.
-        */
-
-        ctx.restore();
-
-
-        /*
-            Draw the next video frame.
-        */
-
-        requestAnimationFrame(
-            drawVideoText
-        );
-    }
-
-
-
-    /* =====================================================
-       INITIALIZE AFTER FONTS LOAD
-    ===================================================== */
-
-    document.fonts.ready.then(
-        function () {
-
-            resizeCanvas();
-
-            drawVideoText();
-
-        }
-    );
-
-
-
-    /* =====================================================
-       HANDLE WINDOW RESIZING
-    ===================================================== */
-
-    window.addEventListener(
-        "resize",
-        resizeCanvas
-    );
-
-
-
-    /* =====================================================
-       START VIDEO
-    ===================================================== */
-
-    video.play().catch(
-        function () {
-
-            console.log(
-                "Video autoplay was blocked."
-            );
-
-        }
-    );
-
-</script>
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script
+    src="./animations.js"
+    defer
+></script>
 
 </body></html>
