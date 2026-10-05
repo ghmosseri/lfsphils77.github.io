@@ -1,592 +1,597 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-    <title>League of Filipino Students</title>
-
-    <style>
-
-        @font-face {
-            font-family: "Inktera Demo";
-            src: url("LFSphils77-fonts/InkteraDemo.otf") format("opentype");
-            font-weight: bold;
-        }
-
-        @font-face {
-            font-family: "Masonries Sans Bold Italic";
-            src: url("LFSphils77-fonts/MasonriesSans-BoldItalic.otf") format("opentype");
-            font-weight: bold;
-            font-style: italic;
-        }
-
-        @font-face {
-            font-family: "Masonries Sans Extra Bold";
-            src: url("LFSphils77-fonts/MasonriesSans-ExtraBold.otf") format("opentype");
-            font-weight: 800;
-        }
+<title>League of Filipino Students</title>
 
 
-        * {
-            box-sizing: border-box;
-        }
+<style>
+
+    /* ========================================
+       FONTS
+    ======================================== */
+
+    @font-face {
+        font-family: "Inktera";
+        src:
+            url("LFSphils77-fonts/inktera-demo/InkteraDemo.otf")
+            format("opentype");
+
+        font-weight: bold;
+        font-style: normal;
+    }
 
 
-        html,
-        body {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-        }
+    @font-face {
+        font-family: "Masonries";
+        src:
+            url("LFSphils77-fonts/masonries-sans/MasonriesSans-BoldItalic.otf")
+            format("opentype");
+
+        font-weight: bold;
+        font-style: italic;
+    }
 
 
-        body {
+    @font-face {
+        font-family: "Masonries";
+        src:
+            url("LFSphils77-fonts/masonries-sans/MasonriesSans-ExtraBold.otf")
+            format("opentype");
 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            background-image:
-                url("LFSphils77-media_assets/LFS-landing-backdrop.jpg");
-
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-
-            overflow: hidden;
-        }
+        font-weight: 800;
+        font-style: normal;
+    }
 
 
-        .container {
+    /* ========================================
+       GENERAL
+    ======================================== */
 
-            width: 100%;
-
-            padding: 30px;
-
-            text-align: center;
-
-            transform: translateY(30px);
-        }
+    * {
+        box-sizing: border-box;
+    }
 
 
-        h1 {
+    html,
+    body {
 
-            margin: 0;
+        width: 100%;
+        height: 100%;
 
-            font-family: "Inktera Demo", sans-serif;
+        margin: 0;
+    }
 
-            font-size: clamp(
+
+    body {
+
+        display: flex;
+
+        justify-content: center;
+        align-items: center;
+
+        background-image:
+            url(
+                "LFSphils77-media_assets/LFS-landing-backdrop.jpeg"
+            );
+
+        background-size: cover;
+
+        background-position: center;
+
+        background-repeat: no-repeat;
+
+        overflow: hidden;
+    }
+
+
+    /* ========================================
+       MAIN CONTAINER
+    ======================================== */
+
+    .container {
+
+        width: 100%;
+
+        padding: 30px;
+
+        text-align: center;
+
+        transform: translateY(30px);
+    }
+
+
+    /* ========================================
+       MAIN TITLE
+    ======================================== */
+
+    h1 {
+
+        margin: 0;
+
+        font-family:
+            "Inktera",
+            sans-serif;
+
+        font-size:
+            clamp(
                 60px,
                 12vw,
                 181.33px
             );
 
-            font-weight: bold;
+        font-weight: bold;
 
-            line-height: 0.9;
+        line-height: 0.9;
 
-            color: #ffbc10;
-        }
+        color: #ffbc10;
+    }
 
 
-        h3 {
+    /* ========================================
+       SUBTITLE
+    ======================================== */
 
-            margin: 20px 0 0;
+    h3 {
 
-            font-family:
-                "Masonries Sans Bold Italic",
-                sans-serif;
+        margin:
+            20px 0 0;
 
-            font-size: clamp(
+        font-family:
+            "Masonries",
+            sans-serif;
+
+        font-size:
+            clamp(
                 35px,
                 7vw,
                 99.8px
             );
 
-            font-weight: bold;
+        font-weight: bold;
 
-            font-style: italic;
+        font-style: italic;
 
-            line-height: 0.9;
+        line-height: 0.9;
 
-            color: rgba(
+        color:
+            rgba(
                 255,
                 188,
                 16,
                 0.768
             );
+    }
+
+
+    /* ========================================
+       VIDEO TEXT CONTAINER
+    ======================================== */
+
+    .video-text {
+
+        width: 100%;
+
+        margin-top: 25px;
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+    }
+
+
+    #videoTextCanvas {
+
+        display: block;
+
+        width: 100%;
+
+        max-width: 1600px;
+
+        height: auto;
+    }
+
+
+    /*
+        The actual video is invisible.
+
+        JavaScript uses it as the moving
+        source for the canvas.
+    */
+
+    #paxSilicaVideo {
+
+        position: absolute;
+
+        width: 1px;
+        height: 1px;
+
+        opacity: 0;
+
+        pointer-events: none;
+    }
+
+
+    /* ========================================
+       MOBILE
+    ======================================== */
+
+    @media (max-width: 600px) {
+
+        .container {
+
+            padding: 15px;
         }
 
+    }
 
-        /*
-        ==========================================
-        VIDEO TEXT
-        ==========================================
-        */
+</style>
 
-        .video-text {
-
-            position: relative;
-
-            width: 100%;
-
-            margin-top: 25px;
-
-            display: flex;
-
-            justify-content: center;
-            align-items: center;
-        }
+</head><body><main class="container">
 
 
-        #videoTextCanvas {
-
-            display: block;
-
-            width: 100%;
-
-            max-width: 1600px;
-
-            height: auto;
-        }
+    <h1>
+        League of Filipino Students
+    </h1>
 
 
-        /*
-        Hidden video.
-        JavaScript uses this as the source
-        for the canvas.
-        */
-
-        #paxSilicaVideo {
-
-            position: absolute;
-
-            width: 1px;
-            height: 1px;
-
-            opacity: 0;
-
-            pointer-events: none;
-        }
+    <h3>
+        Youth Take To The Streets.
+    </h3>
 
 
-        /*
-        ==========================================
-        MOBILE ADJUSTMENTS
-        ==========================================
-        */
+    <div class="video-text">
 
-        @media (max-width: 600px) {
-
-            .container {
-                padding: 15px;
-            }
-
-            .video-text {
-                margin-top: 15px;
-            }
-
-        }
-
-    </style>
-
-</head>
+        <canvas
+            id="videoTextCanvas"
+        ></canvas>
 
 
-<body>
+        <video
+            id="paxSilicaVideo"
 
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="auto"
+        >
 
-    <div class="container">
-
-        <h1>
-            League of Filipino Students
-        </h1>
-
-
-        <h3>
-            Youth Take To The Streets.
-        </h3>
-
-
-        <div class="video-text">
-
-            <canvas id="videoTextCanvas"></canvas>
-
-            <video
-                id="paxSilicaVideo"
-                autoplay
-                muted
-                loop
-                playsinline
-                preload="auto"
+            <source
+                src="LFSphils77-media_assets/LFS-overlaytext-vid.mp4"
+                type="video/mp4"
             >
-                
-                <source
-                    src="LFSphils77-media_assets/LFS-overlaytext-vid.mp4"
-                    type="video/mp4"
-                >
 
-            </video>
-
-        </div>
+        </video>
 
     </div>
 
 
-    <script>
-
-        /*
-        ==========================================
-        GET ELEMENTS
-        ==========================================
-        */
-
-        const video =
-            document.getElementById("paxSilicaVideo");
-
-        const canvas =
-            document.getElementById("videoTextCanvas");
-
-        const ctx =
-            canvas.getContext("2d");
+</main>
 
 
-        /*
-        ==========================================
-        TEXT
-        ==========================================
-        */
+<script>
 
-        const text =
-            "Shut Down Pax Silica!";
+    /* ========================================
+       ELEMENTS
+    ======================================== */
 
-
-        /*
-        ==========================================
-        FONT
-        ==========================================
-        */
-
-        const fontFamily =
-            '"Masonries Sans Extra Bold"';
+    const video =
+        document.getElementById(
+            "paxSilicaVideo"
+        );
 
 
-        /*
-        ==========================================
-        CANVAS SIZE
-        ==========================================
-        */
-
-        function resizeCanvas() {
-
-            const container =
-                document.querySelector(".video-text");
-
-            const width =
-                container.clientWidth;
-
-            /*
-            Keep a wide poster-like aspect ratio.
-            */
-
-            const height =
-                Math.max(
-                    130,
-                    width * 0.20
-                );
+    const canvas =
+        document.getElementById(
+            "videoTextCanvas"
+        );
 
 
-            const pixelRatio =
-                window.devicePixelRatio || 1;
+    const ctx =
+        canvas.getContext(
+            "2d"
+        );
 
 
-            canvas.width =
-                width * pixelRatio;
-
-            canvas.height =
-                height * pixelRatio;
+    const text =
+        "Shut Down Pax Silica!";
 
 
-            canvas.style.width =
-                width + "px";
+    /* ========================================
+       CANVAS RESIZING
+    ======================================== */
 
-            canvas.style.height =
-                height + "px";
+    function resizeCanvas() {
 
-
-            ctx.setTransform(
-                pixelRatio,
-                0,
-                0,
-                pixelRatio,
-                0,
-                0
+        const container =
+            document.querySelector(
+                ".video-text"
             );
+
+
+        const width =
+            container.clientWidth;
+
+
+        const height =
+            Math.max(
+                130,
+                width * 0.20
+            );
+
+
+        const pixelRatio =
+            window.devicePixelRatio || 1;
+
+
+        canvas.width =
+            width * pixelRatio;
+
+
+        canvas.height =
+            height * pixelRatio;
+
+
+        canvas.style.width =
+            width + "px";
+
+
+        canvas.style.height =
+            height + "px";
+
+
+        ctx.setTransform(
+            pixelRatio,
+            0,
+            0,
+            pixelRatio,
+            0,
+            0
+        );
+    }
+
+
+    /* ========================================
+       DRAW VIDEO THROUGH TEXT
+    ======================================== */
+
+    function drawVideoText() {
+
+        const width =
+            canvas.clientWidth;
+
+
+        const height =
+            canvas.clientHeight;
+
+
+        if (
+            width === 0 ||
+            height === 0
+        ) {
+
+            requestAnimationFrame(
+                drawVideoText
+            );
+
+            return;
         }
 
 
         /*
-        ==========================================
-        DRAW VIDEO INSIDE TEXT
-        ==========================================
+            Clear previous frame.
         */
 
-        function drawVideoText() {
-
-            if (
-                video.readyState < 2
-            ) {
-
-                requestAnimationFrame(
-                    drawVideoText
-                );
-
-                return;
-            }
+        ctx.clearRect(
+            0,
+            0,
+            width,
+            height
+        );
 
 
-            const width =
-                canvas.clientWidth;
+        /*
+            Determine responsive font size.
+        */
 
-            const height =
-                canvas.clientHeight;
-
-
-            /*
-            Clear previous frame.
-            */
-
-            ctx.clearRect(
-                0,
-                0,
-                width,
-                height
+        let fontSize =
+            Math.min(
+                width * 0.105,
+                134.59
             );
 
 
-            /*
-            --------------------------------------
-            DETERMINE FONT SIZE
-            --------------------------------------
-            */
+        /*
+            Make sure the font has loaded.
+        */
 
-            let fontSize =
-                Math.min(
-                    width * 0.105,
-                    134.59
-                );
+        ctx.font =
+            `800 ${fontSize}px "Masonries"`;
 
 
-            /*
-            On smaller screens make the
-            typography slightly smaller.
-            */
-
-            if (width < 600) {
-
-                fontSize =
-                    width * 0.105;
-
-            }
+        ctx.textAlign =
+            "center";
 
 
-            ctx.font =
-                800 ${fontSize}px ${fontFamily};
+        ctx.textBaseline =
+            "middle";
 
 
-            ctx.textAlign =
-                "center";
-
-            ctx.textBaseline =
-                "middle";
-
-
-            /*
-            --------------------------------------
+        /*
+            --------------------------------
             CREATE TEXT MASK
-            --------------------------------------
-            */
+            --------------------------------
+        */
 
-            ctx.save();
-
-
-            /*
-            Draw the text as the clipping region.
-            */
-
-            ctx.beginPath();
-
-            ctx.fillText(
-                text,
-                width / 2,
-                height / 2
-            );
+        ctx.save();
 
 
-            /*
-            Everything drawn after this
-            will only appear inside the text.
-            */
+        ctx.beginPath();
 
-            ctx.clip();
 
-    /*
-            --------------------------------------
+        ctx.fillText(
+            text,
+            width / 2,
+            height / 2
+        );
+
+
+        /*
+            Everything drawn after
+            this point is restricted
+            to the text shape.
+        */
+
+        ctx.clip();
+
+
+        /*
+            --------------------------------
             DRAW VIDEO
-            --------------------------------------
-            */
+            --------------------------------
+        */
+
+        if (
+            video.readyState >= 2 &&
+            video.videoWidth > 0
+        ) {
 
             const videoWidth =
                 video.videoWidth;
+
 
             const videoHeight =
                 video.videoHeight;
 
 
-            if (
-                videoWidth &&
-                videoHeight
-            ) {
-
-                const videoRatio =
-                    videoWidth /
-                    videoHeight;
-
-                const canvasRatio =
-                    width /
-                    height;
+            const videoRatio =
+                videoWidth /
+                videoHeight;
 
 
-                let drawWidth;
-                let drawHeight;
+            const canvasRatio =
+                width /
+                height;
 
 
-                /*
-                Cover the entire text area
-                with the video.
-                */
-
-                if (
-                    videoRatio >
-                    canvasRatio
-                ) {
-
-                    drawHeight =
-                        height;
-
-                    drawWidth =
-                        height *
-                        videoRatio;
-
-                } else {
-
-                    drawWidth =
-                        width;
-
-                    drawHeight =
-                        width /
-                        videoRatio;
-
-                }
-
-
-                const x =
-                    (width -
-                    drawWidth) / 2;
-
-                const y =
-                    (height -
-                    drawHeight) / 2;
-
-
-                ctx.drawImage(
-                    video,
-                    x,
-                    y,
-                    drawWidth,
-                    drawHeight
-                );
-
-            }
-
-
-            ctx.restore();
+            let drawWidth;
+            let drawHeight;
 
 
             /*
-            --------------------------------------
-            NEXT VIDEO FRAME
-            --------------------------------------
+                "Cover" behavior.
+
+                The video fills the entire
+                text area without distortion.
             */
 
-            requestAnimationFrame(
-                drawVideoText
+            if (
+                videoRatio >
+                canvasRatio
+            ) {
+
+                drawHeight =
+                    height;
+
+                drawWidth =
+                    height *
+                    videoRatio;
+
+            } else {
+
+                drawWidth =
+                    width;
+
+                drawHeight =
+                    width /
+                    videoRatio;
+            }
+
+
+            const x =
+                (
+                    width -
+                    drawWidth
+                ) / 2;
+
+
+            const y =
+                (
+                    height -
+                    drawHeight
+                ) / 2;
+
+
+            ctx.drawImage(
+                video,
+                x,
+                y,
+                drawWidth,
+                drawHeight
             );
+
         }
 
 
-        /*
-        ==========================================
-        FONT LOADING
-        ==========================================
-        */
-
-        document.fonts.ready.then(
-            function () {
-
-                resizeCanvas();
-
-                /*
-                Start drawing.
-                */
-
-                drawVideoText();
-
-            }
-        );
+        ctx.restore();
 
 
         /*
-        ==========================================
-        WINDOW RESIZE
-        ==========================================
+            Continue with the next
+            animation frame.
         */
 
-        window.addEventListener(
-            "resize",
-            resizeCanvas
+        requestAnimationFrame(
+            drawVideoText
         );
+    }
 
 
-        /*
-        ==========================================
-        START VIDEO
-        ==========================================
-        */
+    /* ========================================
+       WAIT FOR FONTS
+    ======================================== */
 
-        video.play().catch(
-            function () {
+    document.fonts.ready.then(
+        function () {
 
-                /*
-                Some mobile browsers require
-                a user interaction before playback.
+            resizeCanvas();
 
-                The video is muted, so autoplay
-                should normally work.
-                */
+            drawVideoText();
 
-                console.log(
-                    "Video autoplay was blocked."
-                );
-
-            }
-        );
-
-    </script>
+        }
+    );
 
 
-</body>
+    /* ========================================
+       RESIZE
+    ======================================== */
 
-</html>
+    window.addEventListener(
+        "resize",
+        resizeCanvas
+    );
+
+
+    /* ========================================
+       START VIDEO
+    ======================================== */
+
+    video.play().catch(
+        function () {
+
+            console.log(
+                "Autoplay was blocked."
+            );
+
+        }
+    );
+
+</script>
+
+</body></html>
