@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Calendars | League of Filipino Students</title>
+<script>document.documentElement.classList.add("js")</script>
+<link rel="stylesheet" href="./styles.css">
+<style>
+.page{position:relative;min-height:100vh;overflow:hidden;background-color:#800000;background-image:var(--redbg)}
+.wrap{position:relative;z-index:5;max-width:1080px;margin:0 auto;padding:calc(var(--safe) + 112px) 16px 90px}
+:root{--cream:#f7edd6;--a3:#A30000}
+.cream{position:relative;background-color:var(--cream);color:var(--a3);box-shadow:0 18px 44px rgba(0,0,0,.45),inset 0 0 0 2px rgba(128,0,0,.25)}
+.cream::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 .2 0 0 0 0 .1 1.6 0 0 0 -.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") 0 0/120px 120px;opacity:.5}
+.cream>*{position:relative;z-index:1}
+/* embossed #A30000 text on cream */
+.emb{color:var(--a3);text-shadow:-.012em -.012em 0 #fff,.014em .014em 0 rgba(60,0,0,.5),.03em .03em 0 rgba(60,0,0,.22)}
+.legend{width:min(640px,100%);margin:0 auto 22px;padding:14px 20px 18px;border-radius:16px;text-align:center}
+.lg-title{margin:0 0 .45em;font-family:"Masonries Thin",Helvetica,sans-serif;font-weight:100;font-size:clamp(1.4rem,3vw,2rem);letter-spacing:.25em;padding-left:.25em}
+.legend ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:10px 26px}
+.legend li{display:flex;align-items:center;gap:8px;font:600 .95rem "Nunito Sans",Helvetica,sans-serif;color:var(--a3)}
+.legend svg{width:26px;height:26px;overflow:visible}
+.calcard{border-radius:14px;padding:clamp(14px,2.5vw,28px)}
+.cal-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:clamp(12px,2vw,22px);min-height:54px}
+.cal-title{margin:0;flex:1;text-align:center;font-family:"Inktera","Masonries",Helvetica,sans-serif;font-weight:700;font-size:clamp(30px,6vw,80px);line-height:1}
+.arrow{flex:none;width:48px;height:48px;border:0;border-radius:50%;background:var(--a3);color:var(--cream);cursor:pointer;display:grid;place-items:center;box-shadow:2px 3px 0 #4a0505;transition:transform .2s}
+.arrow:hover{transform:scale(1.1)}.arrow:focus-visible{outline:3px solid #800000;outline-offset:3px}
+.arrow[hidden]{display:block;visibility:hidden}
+.arrow svg{width:24px;height:24px}
+.calwrap{position:relative;transition:opacity .22s ease}
+.calwrap.swap{opacity:0}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);border-top:2px solid #800000;border-left:2px solid #800000}
+.cal>*{border-right:2px solid #800000;border-bottom:2px solid #800000;min-width:0}
+.dow{padding:8px 2px;text-align:center;font:600 clamp(.7rem,1.6vw,.95rem) "Nunito Sans",Helvetica,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--a3)}
+.day{min-height:clamp(58px,10.5vw,122px);padding:5px 6px;display:flex;flex-direction:column;gap:4px;font-family:"Nunito Sans",Helvetica,sans-serif;font-weight:600;color:var(--a3)}
+.num{font-size:clamp(.8rem,1.6vw,1.05rem)}
+.ev{display:flex;align-items:flex-start;gap:5px;font-size:.72rem;line-height:1.15;position:relative}
+.ev svg{flex:none;width:clamp(16px,2.4vw,24px);height:clamp(16px,2.4vw,24px);overflow:visible}
+.done{position:absolute;top:-4px;right:-2px}
+.done svg{width:18px;height:18px}
+.cal.future{filter:blur(8px);pointer-events:none;user-select:none}
+.hush{position:absolute;inset:0;margin:0;display:grid;place-items:center;text-align:center;padding:20px;z-index:3;pointer-events:none;
+  font-family:"Inktera","Masonries",Helvetica,sans-serif;font-weight:700;font-size:clamp(1.3rem,3.6vw,2.7rem);line-height:1.15;letter-spacing:.02em;color:var(--gold);text-shadow:var(--extrude);
+  background:radial-gradient(ellipse at center,rgba(60,0,0,.5),transparent 70%)}
+.hush[hidden]{display:none}
+.evlist{list-style:none;margin:20px 0 0;padding:16px 18px;border-radius:14px}
+.evlist:empty{display:none}
+.evlist li{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(128,0,0,.2);font:600 .95rem/1.3 "Nunito Sans",Helvetica,sans-serif;color:var(--a3)}
+.evlist svg{flex:none;width:24px;height:24px;overflow:visible}
+.evlist .no{flex:none;min-width:1.6em;font-weight:800}
+.evlist .x{margin-left:auto;flex:none;background:none;border:0;color:var(--a3);font:800 1rem "Nunito Sans",sans-serif;cursor:pointer;padding:0 6px}
+.day{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+.day.sel{outline:3px solid #FFD700;outline-offset:-3px;background:rgba(255,215,0,.22)}
+.day.flash{animation:flash 1.8s ease}
+@keyframes flash{0%,60%{background:rgba(255,215,0,.55)}100%{background:transparent}}
+/* right-click dialog */
+.dlg{position:fixed;z-index:500;width:min(300px,calc(100vw - 16px));padding:18px 18px 16px;border-radius:14px;text-align:center}
+.dlg[hidden]{display:none}
+.dlg:focus{outline:none}
+.dlg p{margin:0 0 14px;font-family:"Masonries Thin",Helvetica,sans-serif;font-weight:100;font-size:1.4rem;line-height:1.25;color:#A30000}
+.dlg-btns{display:flex;gap:12px;justify-content:center}
+.dlg-btns button,.chip{cursor:pointer;font:800 1rem "Masonries",Helvetica,sans-serif;letter-spacing:.06em;border:2px solid #A30000;border-radius:999px;padding:9px 26px;background:#A30000;color:#FFD700;transition:background .15s,color .15s}
+.dlg-btns button:hover,.dlg-btns button:active,.dlg-btns button:focus-visible{background:#FFD700;color:#A30000;outline:none}
+/* composer under the calendar */
+.composer{margin-top:clamp(14px,2.5vw,24px);padding:14px 16px 12px;border-radius:12px;background:rgba(128,0,0,.06);box-shadow:inset 2px 2px 6px rgba(60,0,0,.3),inset -1px -1px 0 rgba(255,255,255,.7)}
+.composer[hidden]{display:none}
+.cp-title{margin:0 0 8px;font-family:"Masonries Thin",Helvetica,sans-serif;font-weight:100;font-size:1.3rem;color:#A30000}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.chip{display:flex;align-items:center;gap:6px;padding:6px 14px 6px 10px;font:700 .85rem "Nunito Sans",sans-serif;letter-spacing:0;background:var(--cream);color:#A30000}
+.chip svg{width:20px;height:20px;overflow:visible}
+.chip[aria-pressed="true"]{background:#A30000;color:#FFD700}
+.composer input{width:100%;padding:12px 14px;border:2px solid #800000;border-radius:8px;background:#fffaf0;color:#A30000;font:600 1rem "Nunito Sans",Helvetica,sans-serif}
+.composer input:focus{outline:3px solid rgba(255,215,0,.8)}
+.cp-hint{margin:8px 0 0;font:600 .82rem/1.35 "Nunito Sans",sans-serif;color:#A30000}
+.cp-msg{margin:6px 0 0;min-height:1.2em;font:700 .9rem "Nunito Sans",sans-serif;color:#A30000}
+@media(max-width:800px){.ev .evt{display:none}.arrow{width:42px;height:42px}}
+</style>
+</head>
+<body class="grain-page">
+<div class="page">
+  <main class="wrap">
+    <section class="legend cream fade-down" aria-label="Legend">
+      <h2 class="lg-title emb">LEGEND</h2>
+      <ul id="legendList"></ul>
+    </section>
+    <section class="calcard cream fade-down">
+      <header class="cal-head">
+        <button class="arrow" id="prevBtn" type="button" aria-label="Previous month" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4l-8 8 8 8"/></svg></button>
+        <h1 class="cal-title emb" id="calTitle">October 2026</h1>
+        <button class="arrow" id="nextBtn" type="button" aria-label="Next month"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4l8 8-8 8"/></svg></button>
+      </header>
+      <div class="calwrap" id="calWrap">
+        <div class="cal" id="calGrid"></div>
+        <p class="hush" id="hush" hidden>The future will be ours, kasama. Sit tight for now!</p>
+      </div>
+      <form class="composer" id="composer" hidden autocomplete="off">
+        <p class="cp-title">Add an event</p>
+        <div class="chips" id="chips"></div>
+        <input id="cpInput" type="text" aria-label="New event, in the format shown below" spellcheck="false">
+        <p class="cp-hint">Format: (no.). (legend) (month, day, year) &mdash; Event Name (Venue if applicable). Press Enter to add, Esc to cancel.</p>
+        <p class="cp-msg" id="cpMsg" role="status"></p>
+      </form>
+    </section>
+    <ul class="evlist cream" id="evList"></ul>
+  </main>
+</div>
+<div class="dlg cream" id="dlg" tabindex="-1" role="dialog" aria-labelledby="dlgQ" hidden>
+  <p id="dlgQ">Would you like to add an event?</p>
+  <div class="dlg-btns"><button type="button" id="yesBtn">YES</button><button type="button" id="noBtn">NO</button></div>
+</div>
+<script src="./animations.js" defer></script>
+</body>
+</html>
