@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>File Repository | League of Filipino Students</title>
+<script>document.documentElement.classList.add("js")</script>
+<link rel="stylesheet" href="./styles.css">
+<style>
+.page{position:relative;min-height:100vh;overflow:hidden;background-color:#800000;background-image:var(--redbg)}
+.wrap{position:relative;z-index:5;padding:calc(var(--safe) + 104px) 16px 90px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.collage{--g:clamp(6px,1vw,14px);position:relative;container-type:inline-size;margin:0 auto;width:min(100%,1100px);width:min(100%,1100px,calc((100svh - 130px)/.94));
+  display:grid;grid-template-columns:repeat(3,1fr);gap:0;animation:settle 1s ease 2s both}
+@keyframes settle{from{gap:0}to{gap:var(--g)}}
+.strip{position:relative;display:block;aspect-ratio:5/7;pointer-events:none;-webkit-tap-highlight-color:transparent}
+.collage:not(.ready) .strip{overflow:hidden}
+.collage.ready .strip{pointer-events:auto;cursor:pointer}
+.pic{position:absolute;inset:0;transition:inset .7s cubic-bezier(.22,1,.36,1),box-shadow .5s}
+.pic img{display:block;width:100%;height:100%;object-fit:cover;filter:brightness(.82);transition:filter .5s}
+.dn .pic{animation:fromTop 1.5s cubic-bezier(.22,1,.36,1) var(--d) backwards}
+.up .pic{animation:fromBottom 1.5s cubic-bezier(.22,1,.36,1) var(--d) backwards}
+@keyframes fromTop{from{transform:translateY(-102%)}}
+@keyframes fromBottom{from{transform:translateY(102%)}}
+/* hover / keyboard focus: the picture grows past its strip so more of it bleeds onto the page */
+.collage.ready .strip:focus-visible{z-index:20;outline:none}
+.collage.ready .strip:focus-visible .pic{inset:-12% -72%;box-shadow:0 18px 60px rgba(0,0,0,.55),0 0 0 3px var(--gold)}
+.collage.ready .strip:nth-child(3n+1):focus-visible .pic{inset:-12% -144% -12% -12%}
+.collage.ready .strip:nth-child(3n):focus-visible .pic{inset:-12% -12% -12% -144%}
+.collage.ready .strip:focus-visible img{filter:none}
+@media(hover:hover){
+  .collage.ready .strip:hover{z-index:20}
+  .collage.ready .strip:hover .pic{inset:-12% -72%;box-shadow:0 18px 60px rgba(0,0,0,.55),0 0 0 3px var(--gold)}
+  .collage.ready .strip:nth-child(3n+1):hover .pic{inset:-12% -144% -12% -12%}
+  .collage.ready .strip:nth-child(3n):hover .pic{inset:-12% -12% -12% -144%}
+  .collage.ready .strip:hover img{filter:none}
+  .collage:has(.strip:hover) .slogan{opacity:.12}
+}
+.slogan{position:absolute;inset:0;z-index:30;margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none;transition:opacity .4s;
+  font-family:"Inktera",Helvetica,sans-serif;font-weight:700;font-size:3.6vw;font-size:clamp(13px,4.1cqw,60px);line-height:1.08;letter-spacing:.02em;color:var(--gold);text-shadow:var(--extrude),0 0 .5em rgba(40,0,0,.65)}
+.slogan .line{display:block;width:max-content;max-width:100%}
+.w{display:inline-block;white-space:nowrap}
+.split .l{display:inline-block;opacity:0;animation:slit .9s cubic-bezier(.22,1,.36,1) forwards;animation-delay:calc(2.6s + var(--i)*45ms)}
+@keyframes slit{0%{opacity:0;clip-path:inset(50% 0 50% 0);transform:translateY(-.18em)}55%{opacity:1}100%{opacity:1;clip-path:inset(-30% -30% -30% -30%);transform:none}}
+@media(prefers-reduced-motion:reduce){.collage{animation:none;gap:var(--g)}.pic{animation:none!important}.split .l{animation:none;opacity:1}}
+</style>
+</head>
+<body class="grain-page">
+<div class="page">
+  <main class="wrap">
+    <h1 class="sr">File Repository</h1>
+    <div class="collage" id="collage">
+    <a class="strip dn" style="--d:0.00s" href="https://www.facebook.com/share/p/1K5kwPnkVP/" rel="noopener noreferrer" aria-label="Network opposed to Pax Silica: view the Facebook post"><div class="pic"><img src="./LFSphils77-media_assets/NETWORKOPPOSEDTOPAXSILICA.jpg" alt="Network opposed to Pax Silica"></div></a>
+    <a class="strip up" style="--d:0.15s" href="https://www.facebook.com/share/p/1Ea5bQs4D7/" rel="noopener noreferrer" aria-label="What the Pax: view the Facebook post"><div class="pic"><img src="./LFSphils77-media_assets/WHATTHEPAX.jpg" alt="What the Pax"></div></a>
+    <a class="strip dn" style="--d:0.30s" href="https://www.facebook.com/share/p/19uLWkUwtV/" rel="noopener noreferrer" aria-label="Capas caravan: view the Facebook post"><div class="pic"><img src="./LFSphils77-media_assets/CAPASCARAVAN.jpg" alt="Capas caravan"></div></a>
+    <a class="strip up" style="--d:0.45s" href="https://www.facebook.com/share/p/1DHyXTV9M5/" rel="noopener noreferrer" aria-label="BGC rally: view the Facebook post"><div class="pic"><img src="./LFSphils77-media_assets/BGCRALLY.jpg" alt="BGC rally"></div></a>
+    <a class="strip dn" style="--d:0.60s" href="https://www.facebook.com/share/p/1EBLUCyyes/" rel="noopener noreferrer" aria-label="Malaya Batalaga: view the Facebook post"><div class="pic"><img src="./LFSphils77-media_assets/MALAYABATALAGA.jpg" alt="Malaya Batalaga"></div></a>
+    <a class="strip up" style="--d:0.75s" href="https://www.facebook.com/share/p/1Jgs6giYeF/" rel="noopener noreferrer" aria-label="No to Pax Silica lightning rally: view the Facebook post"><div class="pic"><img src="./LFSphils77-media_assets/NOTOPAXSILICALIGHTNINGRALLY.jpg" alt="No to Pax Silica lightning rally"></div></a>
+      <h2 class="slogan" id="slogan" aria-label="MAG-ARAL. MAGLINGKOD. MANGAHAS NA MAKIBAKA."><span class="line" aria-hidden="true">MAG-ARAL.</span><span class="line" aria-hidden="true">MAGLINGKOD.</span><span class="line" aria-hidden="true">MANGAHAS NA MAKIBAKA.</span></h2>
+    </div>
+  </main>
+</div>
+<script src="./animations.js" defer></script>
+</body>
+</html>
