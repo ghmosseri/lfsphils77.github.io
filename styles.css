@@ -1,0 +1,83 @@
+/* Shared styles for every LFS page. Font paths are relative to this file; names are case-sensitive on GitHub Pages. */
+@font-face{font-family:"Inktera";src:url("./LFSphils77-fonts/inktera-demo/InkteraDemo.otf") format("opentype"),url("./LFSphils77-fonts/InkteraDemo.otf") format("opentype"),url("./fonts/InkteraDemo.otf") format("opentype");unicode-range:U+0000-002F,U+003A-10FFFF;font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Masonries";src:url("./LFSphils77-fonts/masonries-sans/MasonriesSans-BoldItalic.otf") format("opentype"),url("./LFSphils77-fonts/MasonriesSans-BoldItalic.otf") format("opentype"),url("./fonts/MasonriesSans-BoldItalic.otf") format("opentype");font-weight:700;font-style:italic;font-display:swap}
+@font-face{font-family:"Masonries";src:url("./LFSphils77-fonts/masonries-sans/MasonriesSans-ExtraBold.otf") format("opentype"),url("./LFSphils77-fonts/MasonriesSans-ExtraBold.otf") format("opentype"),url("./fonts/MasonriesSans-ExtraBold.otf") format("opentype");font-weight:800;font-style:normal;font-display:swap}
+@font-face{font-family:"Masonries Thin";src:url("./LFSphils77-fonts/masonries-sans/MasonriesSans-Thin.otf") format("opentype"),url("./LFSphils77-fonts/MasonriesSans-Thin.otf") format("opentype"),url("./fonts/MasonriesSans-Thin.otf") format("opentype");font-weight:100 400;font-style:normal;font-display:swap}
+@font-face{font-family:"Nunito Sans";src:url("./LFSphils77-fonts/nunito-sans/NunitoSans-SemiBold.ttf") format("truetype"),url("./LFSphils77-fonts/NunitoSans-SemiBold.ttf") format("truetype"),url("./fonts/NunitoSans-SemiBold.ttf") format("truetype");font-weight:600;font-style:normal;font-display:swap}
+
+:root{--maroon:#800000;--burg:#A30000;--bright:#eb282e;--gold:#FFD700;--title:#ffbc10;--ink:#fff4dc;--safe:env(safe-area-inset-top,0px);
+  /* hard, right-leaning extrusion + faint top-left highlight = embossed */
+  --extrude:-.006em -.004em 0 rgba(255,236,150,.6),.012em .0035em 0 #4a0505,.024em .007em 0 #4a0505,.036em .0105em 0 #3d0000,.048em .014em 0 #3d0000,.06em .0175em 0 #300000;
+  /* red grainy gradient: maroon to dark burgundy blobs + bright red highlights */
+  --redbg:radial-gradient(circle at 74% 14%,rgba(235,40,46,.7),transparent 42%),radial-gradient(circle at 20% 86%,rgba(235,40,46,.45),transparent 38%),radial-gradient(ellipse 55% 45% at 16% 28%,rgba(163,0,0,.95),transparent 70%),radial-gradient(ellipse 55% 50% at 86% 62%,rgba(128,0,0,1),transparent 72%),linear-gradient(160deg,#800000,#A30000)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:hidden;-webkit-text-size-adjust:100%}
+body{margin:0;background-color:var(--maroon);color:var(--ink);font-family:"Nunito Sans",Helvetica,Arial,sans-serif;font-weight:600;overflow-x:hidden}
+.ext{text-shadow:var(--extrude)}
+
+/* ---------- Grain: dark speckle, plain blending so it renders on every browser ---------- */
+.grain::after,body.grain-page::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;border-radius:inherit;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.6 0 0 0 -.45'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") 0 0/120px 120px;
+  opacity:.55;animation:grain .2s steps(2) infinite}
+body.grain-page::after{position:fixed;z-index:1;border-radius:0}
+@keyframes grain{0%{background-position:0 0}25%{background-position:-30px 20px}50%{background-position:20px -30px}75%{background-position:30px 30px}100%{background-position:0 0}}
+
+/* ---------- Ribbon (injected by animations.js on every page) ---------- */
+.ribbon{position:fixed;z-index:100;top:calc(var(--safe) + 14px);left:clamp(10px,3vw,36px);right:0;height:64px;
+  display:flex;align-items:center;justify-content:space-between;padding:0 clamp(14px,3vw,40px) 0 28px;
+  border-radius:999px 0 0 999px;overflow:hidden;isolation:isolate;background-color:#800000;
+  background-image:radial-gradient(circle at 80% -30%,rgba(235,40,46,.85),transparent 48%),radial-gradient(circle at 12% 130%,rgba(235,40,46,.55),transparent 42%),linear-gradient(100deg,#800000,#A30000);
+  box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.ribbon>*{position:relative;z-index:3}
+.brand img{height:44px;width:auto;display:block}
+.ribbon ul{list-style:none;margin:0;padding:0;display:flex;align-items:center;gap:2px}
+.ribbon a.link{display:block;padding:10px 14px;color:var(--ink);text-decoration:none;white-space:nowrap;font-family:"Masonries Thin",Helvetica,sans-serif;font-weight:100;font-size:1.15rem;letter-spacing:.03em;transition:color .2s}
+.ribbon a.link:hover,.ribbon a.link[aria-current]{color:var(--gold)}
+.ribbon a.cta{background:var(--gold);color:var(--maroon);border-radius:999px;font-weight:400;padding:10px 18px;margin-left:8px}
+.ribbon a.cta:hover{color:var(--burg);background:#fff0a0}
+.ribbon a:focus-visible,.menu-btn:focus-visible,.sound:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.menu-btn{display:none;background:none;border:2px solid var(--gold);color:var(--gold);width:42px;height:42px;border-radius:50%;font-size:1.3rem;cursor:pointer}
+@media(max-width:1020px){
+  .ribbon{overflow:visible}.menu-btn{display:block}
+  .ribbon ul{position:absolute;top:calc(100% + 8px);right:0;width:min(86vw,340px);flex-direction:column;align-items:stretch;gap:0;
+    background-color:#800000;background-image:linear-gradient(160deg,#800000,#A30000);border-radius:24px 0 0 24px;box-shadow:0 10px 30px rgba(0,0,0,.4);
+    max-height:0;opacity:0;overflow:hidden;transition:max-height .35s,opacity .25s}
+  .ribbon.open ul{max-height:80vh;opacity:1;overflow-y:auto}
+  .ribbon a.link{padding:15px 24px;font-size:1.3rem}.ribbon a.cta{margin:10px 18px 14px;text-align:center}
+}
+
+/* ---------- Smooth fade down on scroll ---------- */
+.js .fade-down{opacity:0;transform:translate3d(0,-28px,0);will-change:opacity,transform;
+  transition:opacity 1.4s cubic-bezier(.22,1,.36,1),transform 1.4s cubic-bezier(.22,1,.36,1)}
+.js .fade-in{opacity:0;transition:opacity 1.8s ease}
+.js .fade-down.in,.js .fade-in.in{opacity:1;transform:none;will-change:auto}
+
+/* ---------- Duotone (gold highlights / maroon shadows) for photo + video ---------- */
+.duo{position:relative;isolation:isolate;background:var(--maroon);
+  -webkit-mask-image:linear-gradient(#000 58%,transparent);mask-image:linear-gradient(#000 58%,transparent)}
+.duo>.media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:center/cover no-repeat;filter:grayscale(1) contrast(1.15) brightness(1.05)}
+.duo::before,.duo::after{content:"";position:absolute;inset:0;pointer-events:none}
+.duo::before{background:var(--gold);mix-blend-mode:multiply}
+.duo::after{background:var(--maroon);mix-blend-mode:screen}
+
+/* ---------- Sound ---------- */
+.sound{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:90;background:var(--maroon);color:var(--gold);border:2px solid var(--gold);border-radius:999px;padding:10px 18px;font:600 .95rem "Nunito Sans",Helvetica,sans-serif;cursor:pointer}
+
+/* ---------- Loading screen (injected) ---------- */
+#loader{position:fixed;inset:0;z-index:1000;background:var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;opacity:0;visibility:hidden;transition:opacity .5s ease,visibility .5s}
+#loader.show{opacity:1;visibility:visible}
+.tri{width:clamp(70px,16vw,110px);animation:tri 3s ease-in-out infinite}
+.tri svg{display:block;width:100%;transition:transform 2.4s ease-in-out}
+@keyframes tri{0%,100%{transform:translateY(34px);opacity:.25}50%{transform:translateY(-34px);opacity:1}}
+@keyframes triFinal{from{transform:translateY(34px);opacity:.25}to{transform:translateY(0);opacity:1}}
+#loader.final .tri{animation:triFinal 3s ease-in-out forwards}
+#loader.final .tri svg{transform:rotate(180deg)}
+#loaderText{margin:0;font-family:"Masonries",Helvetica,sans-serif;font-weight:800;font-size:clamp(1.6rem,5vw,3rem);color:var(--bright);transition:opacity .45s ease;letter-spacing:.02em}
+
+@media(prefers-reduced-motion:reduce){.grain::after,body.grain-page::after,.panel::before{animation:none}html{scroll-behavior:auto}.js .fade-down,.js .fade-in{transition:none;opacity:1;transform:none}}
+
+/* ---------- Footer (injected on every page) ---------- */
+.site-footer{position:relative;z-index:6;text-align:center;padding:30px 20px 34px;color:#fff4dc;font:600 .9rem/1.65 "Nunito Sans",Helvetica,Arial,sans-serif;letter-spacing:.02em}
+.site-footer::before{content:"";display:block;width:min(420px,70%);height:1px;margin:0 auto 18px;background:rgba(255,244,220,.3)}
+.site-footer p{margin:0}
+body:has(#soundBtn) .site-footer{padding-bottom:84px}
